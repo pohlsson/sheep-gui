@@ -1,15 +1,26 @@
 import {call, put} from 'redux-saga/effects'
+import {apiActionTypes} from 'actions/apiActions';
 import * as apiCalls from 'api/apiCalls';
+import {FAILED, SUCCEEDED} from 'actions/actionState';
 
-const BACKEND_PORT = '8080';
+const CORS_PROXY_URL = '127.0.0.1:4000';
+const BACKEND_URL = '127.0.0.1:8080';
 
 export function* logIn(action) {
-    try {
-        const data = yield call(apiCalls.put, 'localhost:' + BACKEND_PORT + '/login', action.payload.userData);
-        yield put({type: "FETCH_SUCCEEDED", data})
-    } catch (error) {
-        yield put({type: "FETCH_FAILED", error})
-    }
+  try {
+    const data = yield call(apiCalls.put, {
+      url: 'http://' + CORS_PROXY_URL + '/' + BACKEND_URL + '/login',
+      data: action.payload,
+    });
+    yield put({
+      type: apiActionTypes.LOG_IN + SUCCEEDED, payload: {
+        sheep: data.body
+      }
+    })
+
+  } catch (error) {
+    yield put({type: apiActionTypes.LOG_IN + FAILED, payload: error})
+  }
 }
 
 

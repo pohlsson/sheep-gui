@@ -1,14 +1,7 @@
-import {fetch} from "fetch";
+import request from 'superagent';
 
-export const put = (url, data) => (
-    fetch(url,
-        {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data),
-        },
-    )
+export const put = ({url, data}) => (
+  request.put(url)
+    .set('Content-Type', 'application/json')
+    .send(data)
 );
