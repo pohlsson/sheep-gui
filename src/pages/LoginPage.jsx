@@ -39,8 +39,8 @@ export class LoginPage extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  onLogin: userData => {
-    dispatch(logIn(userData))
+  onLogin: payload => {
+    dispatch(logIn(payload))
   }
 });
 

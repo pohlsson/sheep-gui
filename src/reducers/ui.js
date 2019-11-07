@@ -3,6 +3,7 @@ import {SUCCEEDED} from "actions/actionState";
 
 const initialState = {
   loggedIn: false,
+  username: "",
 };
 
 const ui = (state = initialState, action) => {
@@ -11,6 +12,7 @@ const ui = (state = initialState, action) => {
       return {
         ...state,
         loggedIn: true,
+        username: action.payload.username,
       };
     default:
       return state;
@@ -18,4 +20,5 @@ const ui = (state = initialState, action) => {
 };
 
 export default ui;
+
 

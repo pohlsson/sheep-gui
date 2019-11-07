@@ -14,12 +14,28 @@ export function* logIn(action) {
     });
     yield put({
       type: apiActionTypes.LOG_IN + SUCCEEDED, payload: {
-        sheep: data.body
+        username: action.payload.username,
+        sheep: data.body,
       }
-    })
-
+    });
   } catch (error) {
     yield put({type: apiActionTypes.LOG_IN + FAILED, payload: error})
+  }
+}
+
+export function* getSheep(action) {
+  try {
+    const data = yield call(apiCalls.get,
+      'http://' + CORS_PROXY_URL + '/' + BACKEND_URL + '/sheep?owner=' + action.payload.username
+    );
+    yield put({
+      type: apiActionTypes.GET_SHEEP + SUCCEEDED, payload: {
+        sheep: data.body,
+      }
+    })
+  }
+  catch (error) {
+    yield put({type: apiActionTypes.GET_SHEEP + FAILED, payload: error})
   }
 }
 

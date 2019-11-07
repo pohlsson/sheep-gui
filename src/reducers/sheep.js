@@ -14,6 +14,12 @@ const sheep = (state = initialState, action) => {
         name: action.payload.sheep.name,
         happiness: action.payload.sheep.happiness,
       };
+    case apiActionTypes.GET_SHEEP + SUCCEEDED:
+      return {
+        ...state,
+        name: action.payload.sheep.name,
+        happiness: action.payload.sheep.happiness,
+      };
     default:
       return state;
   }

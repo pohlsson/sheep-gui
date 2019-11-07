@@ -5,3 +5,8 @@ export const put = ({url, data}) => (
     .set('Content-Type', 'application/json')
     .send(data)
 );
+
+export const get = url => (
+  request.get(url)
+    .set('Content-Type', 'application/json')
+);
